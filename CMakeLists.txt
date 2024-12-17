@@ -28,7 +28,6 @@ find_package(builtin_interfaces REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(keyence_interfaces REQUIRED)
 find_package(PCL REQUIRED)
 
 ## Driver makes use of the libsocket libraries
@@ -125,7 +124,6 @@ ament_target_dependencies(keyence_driver_node
   pcl_ros
   std_msgs
   sensor_msgs
-  keyence_interfaces
   pcl_conversions
   ${${PROJECT_NAME}_EXPORTED_TARGETS}
 )
