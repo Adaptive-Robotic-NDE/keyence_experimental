@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find-pkg-share keyence_experimental)/launch/load_lj_v7080.launch"/>
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+    <param name="robot_description" value="$(var robot_description)" type="str"/>
+  </node>
+  <node pkg="rviz2" exec="rviz2" args="-d $(find-pkg-share keyence_experimental)/config/visualize.rviz" name="rviz" output="screen">
+    <param name="robot_description" value="$(var robot_description)"/>
+  </node>
+</launch>

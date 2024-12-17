@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- <package format="2"> -->
+<package format="3">
+  <name>keyence_experimental</name>
+  <version>0.1.0</version>
+  <description>Keyence driver for laser line scanners</description>
+
+  <maintainer email="jonathan.meyer@swri.org">Jonathan Meyer</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">https://github.com/ros-industrial/keyence_experimental</url>
+
+  <author email="jonathan.meyer@swri.org">Jonathan Meyer</author>
+  <author email="g.a.vanderhoorn@tudelft.nl">G.A. vd. Hoorn (TU Delft Robotics Institute)</author>
+  <author email="West_Matthew_T@cat.com">Matthew West</author>
+  
+  <!-- <buildtool_depend>catkin</buildtool_depend> -->
+  <buildtool_depend>ament_catkin</buildtool_depend>
+  <!-- <depend>message_generation</depend> -->
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <!-- <depend>message_runtime</depend> -->
+  <depend>sensor_msgs</depend>
+  <depend>pcl_ros</depend>
+  <!-- <depend>roscpp</depend> -->
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <!-- <depend>keyence_interfaces</depend> -->
+  <!-- <depend>std_msgs</depend> -->
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+  <depend>libsocket</depend>
+
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>

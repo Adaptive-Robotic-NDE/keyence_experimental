@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:macro name="gazebo_keyence" >
+        <gazebo reference="${prefix}lj_v7080_frame">
+            <sensor name="laser" type="ray">
+                <pose> 0 0 0 0 0 0 </pose>
+                <visualize>true</visualize>
+                <update_rate>1000</update_rate>
+                <ray> 
+                    <scan>
+                        <horizontal>
+                            <samples>56</samples>
+                            <min_angle>-0.246</min_angle>
+                            <max_angle>0.246</max_angle>
+                        </horizontal>
+                    </scan>
+                    <range>
+                        <min>0.057</min>
+                        <max>0.103</max>
+                    </range>
+                </ray>
+                <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
+                    <ros>
+                        <argument>~/out:=profiles</argument>
+                    </ros>
+                    <output_type>sensor_msgs/PointCloud2</output_type>
+                    <frame_name>${prefix}lj_v7080_frame</frame_name>
+                </plugin>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+</robot>
