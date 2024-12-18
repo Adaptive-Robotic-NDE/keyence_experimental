@@ -16,7 +16,7 @@
   <author email="West_Matthew_T@cat.com">Matthew West</author>
   
   <!-- <buildtool_depend>catkin</buildtool_depend> -->
-  <buildtool_depend>ament_catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
   <!-- <depend>message_generation</depend> -->
   <buildtool_depend>rosidl_default_generators</buildtool_depend>
 
@@ -30,7 +30,7 @@
   <!-- <depend>std_msgs</depend> -->
   <exec_depend>rosidl_default_runtime</exec_depend>
   <member_of_group>rosidl_interface_packages</member_of_group>
-  <depend>libsocket</depend>
+  <!-- <depend>libsocket</depend> -->
 
   <member_of_group>rosidl_interface_packages</member_of_group>
 
