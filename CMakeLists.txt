@@ -11,13 +11,13 @@ set(CMAKE_PREFIX_PATH "/opt/ros/humble")
 find_package(ament_cmake REQUIRED)
 
 ## Find catkin macros and libraries
-#find_package(catkin REQUIRED COMPONENTS
+# find_package(catkin REQUIRED COMPONENTS
 #  message_generation
 #  message_runtime
 #  pcl_ros
 #  roscpp
 #  std_msgs
-#)
+# )
 
 find_package(rosidl_default_generators REQUIRED)
 find_package(rosidl_default_runtime REQUIRED)
