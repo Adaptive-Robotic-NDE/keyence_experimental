@@ -39,6 +39,13 @@ inline bool isPointValid(int32_t pt)
  */
 struct ProfileInformation
 {
+  /// MISNAMED: there is no batching here. This is the number of POINTS ACROSS
+  /// THE LASER LINE in ONE profile -- 800 on an LJ-V7080 -- not a count of
+  /// profiles.
+  /// SingleProfile::Request encodes a literal 1 as its profile count, the
+  /// decoder resizes profile_points to this, and the driver walks them as
+  /// x = x_start + i * x_increment. One profile per reply, and so exactly one
+  /// acquisition timestamp per reply.
   uint16_t num_profiles;
   uint16_t data_unit; // equivalent to micrometers
   int32_t x_start;

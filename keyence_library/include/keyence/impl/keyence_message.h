@@ -10,6 +10,54 @@
 namespace keyence
 {
 
+/**
+ * @brief What a response is, decided from its HEADER and its LENGTH before
+ *        any body decoder is handed the bytes.
+ *
+ * LOCAL PATCH. A controller with its laser switched off answers a profile
+ * request with a well-formed 48-byte message: the 24-byte response header and
+ * fixed body segment, then the GetProfile common block, and no profile
+ * attached. There is nothing wrong with it. Handing those 24 body bytes to
+ * SingleProfile::Response::decodeFrom() regardless makes it (rightly) refuse
+ * to decode a profile header that is not there, and the exception unwinds past
+ * the socket -- tearing down a healthy connection and rebuilding it once a
+ * second for as long as the laser stays off.
+ *
+ * So classify first. `no_data` is a normal answer and is not an error; only
+ * corruption and a desynchronised stream still throw.
+ */
+/**
+ * The controller's return code for "I have no profile for you right now".
+ *
+ * MEASURED, not taken from the manual: a real LJ-V7080 answers a profile
+ * request with return code 160 (0xA0) and controller status 0 whenever its
+ * laser is off, interleaved with good profiles as the laser is switched.
+ * Treated as `no_data` rather than `controller_error` so that an idle head
+ * reads as idle -- see Client::sendReceive.
+ */
+static const uint8_t kNoProfileAvailable = 0xA0;
+
+enum class ResponseStatus
+{
+  ok,                ///< return code 0, and a body carrying a payload. Decoded.
+  no_data,           ///< return code 0, well formed, nothing attached to decode.
+  controller_error   ///< non-zero return code; the body is not a payload at all.
+};
+
+inline const char* describe(ResponseStatus status)
+{
+  switch (status)
+  {
+  case ResponseStatus::ok:
+    return "ok";
+  case ResponseStatus::no_data:
+    return "no data attached";
+  case ResponseStatus::controller_error:
+    return "controller error return code";
+  }
+  return "unknown";
+}
+
 class Message
 {
 public:

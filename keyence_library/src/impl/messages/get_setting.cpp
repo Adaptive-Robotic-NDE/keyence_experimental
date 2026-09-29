@@ -1,4 +1,5 @@
 #include <keyence/impl/messages/get_setting.h>
+#include <keyence/impl/keyence_exception.h>
 #include <keyence/impl/keyence_utils.h>
 
 keyence::command::GetSetting::Request::Request(uint8_t level, uint8_t type,
@@ -32,6 +33,14 @@ void keyence::command::GetSetting::Request::encodeInto(keyence::MutableBuffer bu
 
 void keyence::command::GetSetting::Response::decodeFrom(keyence::MutableBuffer resp)
 {
+  // LOCAL PATCH: every caller reads data[0], which on an empty payload is
+  // undefined behaviour. resp.size is the number of bytes
+  // actually received rather than the stream buffer's high-water capacity
+  // (see Client::sendReceive), so a zero here is reachable and real.
+  if (resp.size == 0)
+  {
+    throw KeyenceException("Setting response carried no payload");
+  }
   data.resize(resp.size);
   memcpy(data.data(), resp.data, resp.size);
 }
