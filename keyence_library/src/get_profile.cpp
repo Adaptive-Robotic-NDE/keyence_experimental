@@ -55,6 +55,23 @@ int main(int argc, char** argv)
 
     std::cout << resp.header << '\n';
 
+    // A controller with its laser off answers normally and attaches no
+    // profile. That is the single most useful thing this tool can tell an
+    // operator at the machine, so say it rather than printing an empty
+    // profile or failing inside the decoder.
+    if (!resp.has_data())
+    {
+      std::cout << "NO PROFILE: " << keyence::describe(resp.status) << ". "
+                << resp.received << " bytes received, " << resp.body_size
+                << " of body.\n"
+                << "The controller is answering. It has nothing to measure: the "
+                   "laser is off (a UR digital output switches it on this cell), "
+                   "nothing is within range of the head, or the program is not "
+                   "triggering.\n"
+                << resp.dump << '\n';
+      return 2;
+    }
+
     displayProfile(resp.body);
   }
   catch (const keyence::KeyenceException& exc)

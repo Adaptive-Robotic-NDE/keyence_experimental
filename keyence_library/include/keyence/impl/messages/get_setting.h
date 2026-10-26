@@ -37,6 +37,22 @@ public:
 
   struct Response
   {
+    /**
+     * @brief Is there a setting value attached to a body of @e body_size bytes?
+     *
+     * Every caller reads data[0], so an empty payload is no answer at all --
+     * but it is still a well-formed message rather than corruption, and
+     * Client::sendReceive reports it as ResponseStatus::no_data. The callers
+     * in keyence_driver_node turn that into a KeyenceException of their own,
+     * because a controller that will not say what program it is running is a
+     * connection worth rebuilding; that is a decision for them, not for the
+     * transport.
+     */
+    static bool carriesPayload(std::size_t body_size)
+    {
+      return body_size > 0;
+    }
+
     void decodeFrom(MutableBuffer resp);
     std::vector<uint8_t> data;
   };

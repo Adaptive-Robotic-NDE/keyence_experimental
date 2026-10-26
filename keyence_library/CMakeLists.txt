@@ -14,6 +14,10 @@ target_link_libraries(
   keyence_impl
   ${libsocket_LIBRARIES}
 )
+# The headers use `static constexpr` members and `enum class`. GCC 11 already
+# defaults to gnu++17, so this states explicitly what the rest of the package
+# states for its own targets rather than relying on the compiler default.
+target_compile_features(keyence_impl PUBLIC cxx_std_17)
 
 # Build test program for changing active program
 # add_executable(
