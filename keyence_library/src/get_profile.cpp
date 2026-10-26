@@ -57,7 +57,7 @@ int main(int argc, char** argv)
 
     // A controller with its laser off answers normally and attaches no
     // profile. That is the single most useful thing this tool can tell an
-    // operator standing at the cell, so say it rather than printing an empty
+    // operator at the machine, so say it rather than printing an empty
     // profile or failing inside the decoder.
     if (!resp.has_data())
     {

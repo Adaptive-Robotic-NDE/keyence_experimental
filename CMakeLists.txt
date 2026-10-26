@@ -11,10 +11,9 @@ project(keyence_experimental)
 #     set(CMAKE_PREFIX_PATH "/opt/ros/humble")
 # which REPLACES the prefix path colcon passes in. The CMake variable is
 # searched before the CMAKE_PREFIX_PATH *environment* variable, so on any
-# machine that also has Humble installed -- the ex-ur10e-1 cell PC does --
-# every find_package below resolved against Humble while the rest of the
-# workspace was built and run against Iron. The binary linked, then the
-# loader failed at startup with
+# machine that also has Humble installed, every find_package below resolved
+# against Humble while the rest of the workspace was built and run against
+# Iron. The binary linked, then the loader failed at startup with
 #   symbol lookup error: undefined symbol:
 #     _ZN6rclcpp19QOSEventHandlerBase26get_number_of_ready_eventsEv
 # (rclcpp::QOSEventHandlerBase::get_number_of_ready_events() is Humble-only)
@@ -68,8 +67,8 @@ find_package(Boost REQUIRED)
 # Search ONLY the workspace, never the system paths. dermesser/libsocket builds
 # a library called libsocket++.so -- and so does Debian's completely unrelated
 # `libsocket++-dev` (the socket++ iostream library, headers under
-# /usr/include/socket++, no inetclientstream.hpp). That package is installed in
-# the ros2-workstation container, so a plain find_library(NAMES socket++) picks
+# /usr/include/socket++, no inetclientstream.hpp). That package is often
+# installed on the build machine, so a plain find_library(NAMES socket++) picks
 # /usr/lib/x86_64-linux-gnu/libsocket++.so and links the wrong library.
 # Pin it instead.
 get_filename_component(_ws_install_root "${CMAKE_INSTALL_PREFIX}" DIRECTORY)
@@ -93,7 +92,7 @@ if(NOT libsocket_INCLUDE_DIRS OR NOT libsocket_LIBRARIES)
     "libsocket not found under ${_libsocket_prefixes}\n"
     "  headers: '${libsocket_INCLUDE_DIRS}'\n"
     "  library: '${libsocket_LIBRARIES}'\n"
-    "libsocket is a package in THIS workspace. Build it first:\n"
+    "libsocket is a package in THIS colcon workspace. Build it first:\n"
     "  colcon build --packages-select libsocket\n"
     "To point at a copy elsewhere, pass -Dlibsocket_INCLUDE_DIRS=... and "
     "-Dlibsocket_LIBRARIES=... (do NOT use Debian's libsocket++-dev, which is "

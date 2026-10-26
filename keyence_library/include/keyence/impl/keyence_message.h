@@ -27,7 +27,7 @@ namespace keyence
  * corruption and a desynchronised stream still throw.
  */
 /**
- * The controller's return code for "I have no profile for you right now".
+ * The controller's return code for "no profile is available right now".
  *
  * MEASURED, not taken from the manual: a real LJ-V7080 answers a profile
  * request with return code 160 (0xA0) and controller status 0 whenever its

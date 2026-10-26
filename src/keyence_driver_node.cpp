@@ -472,7 +472,7 @@ int main(int argc, char** argv)
   // get_parameter_or() on names that were never declared, which in ROS 2 means
   // the override a launch file passes is not just ignored, it cannot even be
   // seen (`ros2 param list` does not show them). Anything that wanted a second
-  // head on another port, or the frame the cell's URDF actually uses, was
+  // head on another port, or the frame the robot's URDF actually uses, was
   // silently getting 24691 and lj_v7080_optical_frame.
   node->declare_parameter<std::string>("controller_ip", "192.168.1.153");
   node->declare_parameter<std::string>("frame_id", DEFAULT_FRAME_ID);

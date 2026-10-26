@@ -44,10 +44,11 @@
   <!-- <depend>keyence_interfaces</depend> -->
   <exec_depend>rosidl_default_runtime</exec_depend>
   <member_of_group>rosidl_interface_packages</member_of_group>
-  <!-- REQUIRED, and it is a package in this workspace. CMakeLists.txt does
-       find_package(libsocket REQUIRED); with this commented out colcon does
-       not know the two are related, so it does not order the build and does
-       not put libsocket on CMAKE_PREFIX_PATH. A clean build then fails with
+  <!-- REQUIRED, and it is a package in the same colcon workspace.
+       CMakeLists.txt does find_package(libsocket REQUIRED); with this
+       commented out colcon does not know the two are related, so it does
+       not order the build and does not put libsocket on CMAKE_PREFIX_PATH.
+       A clean build then fails with
        "Add the installation prefix of libsocket to CMAKE_PREFIX_PATH", while
        an incremental build in an already-populated workspace succeeds, so the
        fault appears only on a build from scratch. -->

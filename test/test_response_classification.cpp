@@ -11,13 +11,13 @@
 //
 // Nothing is truncated. 24 body bytes is a 48-byte wire message: the 24-byte
 // response header and fixed body segment, then the GetProfile common block,
-// and no profile attached -- a controller answering "I have nothing to
-// measure". Handing it to the profile decoder makes the decoder (rightly)
+// and no profile attached -- a controller reporting that it has nothing to
+// measure. Handing it to the profile decoder makes the decoder (rightly)
 // refuse, and the exception unwinds past the `keyence::TcpClient` declared
 // inside the driver's try block, destroying a perfectly good socket. Connect,
 // three settings round-trips, throw, repeat, forever. From outside /profiles
-// is silent and the driver looks dead, so the cell appears not to boot with
-// the laser off.
+// is silent and the driver looks dead, so the system appears not to start
+// with the laser off.
 //
 // So: classify first. These drive a scripted Client, so they need no
 // controller, no laser and no network.
